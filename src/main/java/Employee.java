@@ -1,5 +1,3 @@
-package main.java;
-
 import java.util.Objects;
 
 public class Employee {
