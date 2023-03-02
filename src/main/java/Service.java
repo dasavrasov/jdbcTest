@@ -42,6 +42,10 @@ public class Service {
             PreparedStatement stm = con.prepareStatement("DELETE FROM Department WHERE ID=?");
             stm.setInt(1, d.departmentID);
             stm.executeUpdate();
+            //удалить всех сотрудников отдела
+            stm = con.prepareStatement("DELETE FROM Employee WHERE DepartmentID=?");
+            stm.setInt(1, d.departmentID);
+            stm.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
