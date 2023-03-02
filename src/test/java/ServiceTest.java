@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
@@ -11,6 +12,7 @@ public class ServiceTest {
      */
 
     @Test
+    @DisplayName("Добавление отдела")
     public void testAddDepartment(){
         Department department = new Department(Integer.MAX_VALUE,"TESTING");
         Statement stm;
@@ -36,6 +38,7 @@ public class ServiceTest {
     }
 
     @Test
+    @DisplayName("Добавление сотрудника")
     public void testAddEmployee(){
         Employee employee = new Employee(Integer.MAX_VALUE,"TEST",0);
         try (Connection con = DriverManager.getConnection("jdbc:h2:.\\Office")) {
@@ -57,6 +60,7 @@ public class ServiceTest {
     }
 
     @Test
+    @DisplayName("Удаление сотрудника")
     public void testRemoveEmployee(){
         //добавить пользователя
         //проверить, что пользователь добавился
@@ -105,6 +109,7 @@ public class ServiceTest {
      * При удалении отдела (Department) информация о всех сотрудниках, работающих в этом отделе, должна быть удалена
      */
     @Test
+    @DisplayName("Удаление отдела")
     public void testRemoveDepartment(){
         Department department = new Department(Integer.MAX_VALUE,"TESTING");
         PreparedStatement stm;
