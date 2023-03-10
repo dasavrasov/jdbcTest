@@ -50,13 +50,28 @@ public class PobedaTests {
         //б) на странице есть логотип Победы.
         page.getLogo().isDisplayed();
 
-        //3. Навести мышку на пункт «Информация».
-        actions.moveToElement(page.getInfo()).perform();
+        //3. Проскроллить страницу к блоку поиска билета и убедиться, что блок с поиском билета действительно отображается
+        // (есть поле Откуда, Куда, Дата вылета Туда, Дата вылета Обратно)
+        //actions.moveToElement(page.getInfo()).perform();
+        actions.scrollToElement(page.getTicketSearch().getFrom()).perform();
 
-        //4. Убедиться, что появилось всплывающее окно, которое содержит следующие заголовки: «Подготовка к полету», «Полезная информация», «О компании».
-        page.getFlightInfo().isDisplayed();
-        page.getInfoUseful().isDisplayed();
-        page.getAbout().isDisplayed();
+        //4. Выбрать (или ввести) следующие критерии поиска:
+        //откуда – Москва (без выбора аэропорта) + нажать Enter
+        //куда – Санкт-Петербург + нажать Enter.
+        //текст не вводим, выбираем из списка первый элемент (Москва, Санкт-Петербург)
+        page.getTicketSearch().getFrom().click();
+        page.getTicketSearch().getFrom().click();
+        page.getTicketSearch().getTownList().getMenuItem().click();
+        page.getTicketSearch().getTo().click();
+        page.getTicketSearch().getTownList().getMenuItem().click();
+
+        //6. Нажать кнопку «Поиск».
+        page.getTicketSearch().getSearchBtn().click();
+
+        //7. Убедиться, что около поля «Туда» появилась красная обводка.
+        //rgb(185, 0, 85) - Красный цвет
+        assertEquals(page.getTicketSearch().getDeparture().getCssValue("border-color"),"rgb(185, 0, 85)");
+
 }
 
     @AfterEach

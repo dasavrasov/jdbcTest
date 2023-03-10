@@ -29,9 +29,12 @@ public class MainPage {
     @Getter
     private WebElement about;
 
+    @Getter
+    private TicketSearch ticketSearch;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
+        this.ticketSearch=new TicketSearch(driver);
         PageFactory.initElements(driver,this);
     }
 
