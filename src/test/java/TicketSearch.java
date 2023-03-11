@@ -28,9 +28,28 @@ public class TicketSearch {
     private WebElement arrival;
 
     //Кнопка Поиск
-    @FindBy(css="button[class=\"dp-n39zqv\"][type=\"submit\"]")
+    @FindBy(css="button[type=\"submit\"]")
     @Getter
     private WebElement searchBtn;
+
+    //Управление бронированием
+    @FindBy(xpath="//div[@class='__mantine-ref-text dp-vbfp0a'][contains(.,'Управление бронированием')]")
+    @Getter
+    private WebElement booking;
+
+    //Номер заказа или билета
+    @FindBy(css="input[placeholder=\"Номер заказа или билета\"]")
+    @Getter
+    private WebElement orderNo;
+
+    //Фамилия клиента
+    @FindBy(css="input[placeholder=\"Фамилия клиента\"]")
+    @Getter
+    private WebElement fio;
+
+    @FindBy(xpath="//div[@ng-if='vm.errorMessage'][contains(.,'Заказ с указанными параметрами не найден')]")
+    @Getter
+    private WebElement errorMessage;
 
     @Getter
     private TownList townList;
