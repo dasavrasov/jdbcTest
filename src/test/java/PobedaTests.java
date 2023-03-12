@@ -1,101 +1,69 @@
-import lombok.SneakyThrows;
-import org.awaitility.Awaitility;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+
+import static com.codeborne.selenide.Condition.exactText;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.switchTo;
 
 import java.time.Duration;
-import java.util.concurrent.Callable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PobedaTests {
 
-    WebDriver driver;
-    Actions actions;
-
-    @BeforeEach
-    public void startup(){
-        System.setProperty("webdriver.chrome.driver","D:/STEP-UP/UI/chromedriver.exe");
+    @BeforeAll
+    public static void startup(){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofMillis(30000));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofMillis(30000));
-        actions=new Actions(driver);
+        Configuration.browser="chrome";
+        Configuration.browserCapabilities=options;
     }
 
     @Test
-    @SneakyThrows
     public void test1(){
         //1.  Перейти на сайт pobeda.aero.
-        driver.get("https://pobeda.aero/");
 
-        MainPage page = new MainPage(driver);
+        open("https://pobeda.aero/");
 
+        MainPage page = new MainPage();
         //2. Убедиться, что сайт открылся:
         //а) текст заголовка страницы: Авиакомпания «Победа» - купить билеты на самолёт дешево онлайн, прямые и трансферные рейсы;
         assertEquals(page.getTitle(),"Авиакомпания «Победа» - купить билеты на самолёт дешево онлайн, прямые и трансферные рейсы");
         //б) на странице есть логотип Победы.
-        page.getLogo().isDisplayed();
+        page.getLogo().shouldBe(visible);
 
         //б) на странице есть логотип Победы.
-        page.getLogo().isDisplayed();
-        driver.manage().window().maximize();
+        page.getLogo().shouldBe(visible);
+        Configuration.browserSize="1920x1080";
 
         //3. Проскроллить страницу чуть ниже и кликнуть на пункт «Управление бронированием».
-        actions.scrollToElement(page.getTicketSearch().getBooking()).perform();
+        page.getTicketSearch().getBooking().hover();
         page.getTicketSearch().getBooking().click();
 
         //4. Выбрать (или ввести) следующие критерии поиска:
 //        а) есть поле «Номер заказа или билета»;
-        page.getBookingSearch().getOrderNo().isDisplayed();
+        page.getBookingSearch().getOrderNo().shouldBe(visible);
 //        б) есть поле «Фамилия клиента»;
-        page.getBookingSearch().getFio().isDisplayed();
+        page.getBookingSearch().getFio().shouldBe(visible);
 //        в) есть кнопка «Поиск».
-        page.getBookingSearch().getSearchBtn().isDisplayed();
+        page.getBookingSearch().getSearchBtn().shouldBe(visible);
 
 //        5. Ввести в поля ввода данные:
 //        номер заказа – XXXXXX, фамилия – Qwerty
 //        и нажать кнопку «Поиск».
-        page.getBookingSearch().getOrderNo().click();
-        page.getBookingSearch().getOrderNo().sendKeys("XSSSSS");
-        page.getBookingSearch().getFio().click();
-        page.getBookingSearch().getFio().sendKeys("Qwertyyyyyy");
+        page.getBookingSearch().getOrderNo().setValue("SSSSSD");
+        page.getBookingSearch().getFio().setValue("Qwertyyyyyyyy");
         page.getBookingSearch().getSearchBtn().click();
 
 //        6. Убедиться, что в новой вкладке на экране отображается текст ошибки «Заказ с указанными параметрами не найден»
         //ждем пока откроется новая вкладка
-        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(numberOfWindowsToBe(2));
-
-        //переключаемся на новую вкладку
-        String originalWindow = driver.getWindowHandle();
-        for (String windowHandle : driver.getWindowHandles()) {
-            if(!originalWindow.contentEquals(windowHandle)) {
-                driver.switchTo().window(windowHandle);
-                break;
-            }
-        }
-
+        switchTo().window(1,Duration.ofSeconds(30));
         //Ждем пока откроется страница с title "Просмотр заказа"
-        wait.until(titleIs("Просмотр заказа"));
         //на экране отображается текст ошибки «Заказ с указанными параметрами не найден»
-        page.getBookingSearch().getErrorMessage().isDisplayed();
+        page.getBookingSearch().getErrorMessage().shouldHave(exactText("Заказ с указанными параметрами не найден"));
 }
-
-    @AfterEach
-    public void shutDown(){
-        driver.quit();
-    }
 
 }

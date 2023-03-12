@@ -1,19 +1,11 @@
 import lombok.Getter;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.codeborne.selenide.SelenideElement;
+import lombok.NoArgsConstructor;
 
+import static com.codeborne.selenide.Selenide.*;
+
+@NoArgsConstructor
 public class TownList {
-
-    WebDriver driver;
-
-    @FindBy(css="button[class=\"dp-1h71hub\"][role=\"menuitem\"]:first-child")
     @Getter
-    private WebElement menuItem;
-
-    public TownList(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-    }
+    private SelenideElement menuItem=$("button[class=\"dp-1h71hub\"][role=\"menuitem\"]:first-child");
 }

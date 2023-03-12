@@ -1,47 +1,35 @@
+import com.codeborne.selenide.SelenideElement;
 import lombok.Getter;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import static com.codeborne.selenide.Selenide.*;
 
 public class MainPage {
 
-    WebDriver driver;
-
-    @FindBy(css="div a img[src*=\"logo\"]")
     @Getter
-    private WebElement logo;
+    private SelenideElement logo=$("div a img[src*=\"logo\"]");
 
-    @FindBy(xpath="//div[contains(@class,'dp-Group-root')]/a[contains(@href,'information')]/div")
     @Getter
-    private WebElement info;
+    private SelenideElement info=$x("//div[contains(@class,'dp-Group-root')]/a[contains(@href,'information')]/div");
 
-    @FindBy(xpath="//div[contains(.,'Подготовка к полёту')]")
     @Getter
-    private WebElement flightInfo;
+    private SelenideElement flightInfo=$x("//div[contains(.,'Подготовка к полёту')]");
 
-    @FindBy(xpath="//div[contains(.,'Полезная информация')]")
     @Getter
-    private WebElement infoUseful;
+    private SelenideElement infoUseful=$x("//div[contains(.,'Полезная информация')]");
 
-    @FindBy(xpath="//div[contains(.,'О компании')]")
     @Getter
-    private WebElement about;
+    private SelenideElement about=$x("//div[contains(.,'О компании')]");
 
     @Getter
     private TicketSearch ticketSearch;
     @Getter
     private BookingSearch bookingSearch;
 
-    public MainPage(WebDriver driver) {
-        this.driver = driver;
-        this.ticketSearch=new TicketSearch(driver);
-        this.bookingSearch=new BookingSearch(driver);
-        PageFactory.initElements(driver,this);
+    public MainPage() {
+        this.ticketSearch=new TicketSearch();
+        this.bookingSearch=new BookingSearch();
     }
 
     public String getTitle(){
-        return driver.getTitle();
+        return $("title").getAttribute("text");
     }
 }

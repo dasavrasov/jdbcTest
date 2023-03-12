@@ -1,48 +1,36 @@
 import lombok.Getter;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import com.codeborne.selenide.SelenideElement;
+import static com.codeborne.selenide.Selenide.*;
 
 public class TicketSearch {
-    WebDriver driver;
-
     //Откуда
-    @FindBy(css="input[placeholder=\"Откуда\"][aria-controls*=\"dropdown\"]")
     @Getter
-    private WebElement from;
+    private SelenideElement from=$("input[placeholder=\"Откуда\"][aria-controls*=\"dropdown\"]");
 
     // Куда,
-    @FindBy(css="input[placeholder=\"Куда\"][aria-controls*=\"dropdown\"]")
     @Getter
-    private WebElement to;
+    private SelenideElement to=$("input[placeholder=\"Куда\"][aria-controls*=\"dropdown\"]");
 
     // Дата вылета Туда,
-    @FindBy(css="input[id=\":Rbcualmqm:\"][placeholder=\"Туда\"]")
     @Getter
-    private WebElement departure;
+    private SelenideElement departure=$("input[id=\":Rbcualmqm:\"][placeholder=\"Туда\"]");
 
     // Дата вылета Обратно
-    @FindBy(css="input[id=\":Rrcualmqm:\"][placeholder=\"Обратно\"]")
     @Getter
-    private WebElement arrival;
+    private SelenideElement arrival=$("input[id=\":Rrcualmqm:\"][placeholder=\"Обратно\"]");
 
     //Кнопка Поиск
-    @FindBy(css="button[type=\"submit\"]")
     @Getter
-    private WebElement searchBtn;
+    private SelenideElement searchBtn=$("button[type=\"submit\"]");
 
     //Управление бронированием
-    @FindBy(xpath="//div[@class='__mantine-ref-text dp-vbfp0a'][contains(.,'Управление бронированием')]")
     @Getter
-    private WebElement booking;
+    private SelenideElement booking=$x("//div[@class='__mantine-ref-text dp-vbfp0a'][contains(.,'Управление бронированием')]");
 
     @Getter
     private TownList townList;
 
-    public TicketSearch(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-        this.townList=new TownList(driver);
+    public TicketSearch() {
+        this.townList=new TownList();
     }
 }

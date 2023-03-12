@@ -1,36 +1,24 @@
 import lombok.Getter;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import static com.codeborne.selenide.Selenide.*;
+import com.codeborne.selenide.SelenideElement;
+import lombok.NoArgsConstructor;
 
+
+@NoArgsConstructor
 public class BookingSearch {
-
-    WebDriver driver;
-
     //Номер заказа или билета
-
-    @FindBy(css="input[placeholder=\"Номер заказа или билета\"]")
     @Getter
-    private WebElement orderNo;
+    private SelenideElement orderNo=$("input[placeholder=\"Номер заказа или билета\"]");
     //Фамилия клиента
 
-    @FindBy(css="input[placeholder=\"Фамилия клиента\"]")
     @Getter
-    private WebElement fio;
+    private SelenideElement fio=$("input[placeholder=\"Фамилия клиента\"]");
     //Кнопка Поиск
 
-    @FindBy(css="button[type=\"submit\"]")
     @Getter
-    private WebElement searchBtn;
+    private SelenideElement searchBtn=$("button[type=\"submit\"]");
 
-    @FindBy(xpath="//div[@ng-if='vm.errorMessage'][contains(.,'Заказ с указанными параметрами не найден')]")
     @Getter
-    private WebElement errorMessage;
-
-    public BookingSearch(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-    }
+    private SelenideElement errorMessage=$x("//div[@ng-if='vm.errorMessage']");
 
 }
