@@ -37,20 +37,6 @@ public class TicketSearch {
     @Getter
     private WebElement booking;
 
-    //Номер заказа или билета
-    @FindBy(css="input[placeholder=\"Номер заказа или билета\"]")
-    @Getter
-    private WebElement orderNo;
-
-    //Фамилия клиента
-    @FindBy(css="input[placeholder=\"Фамилия клиента\"]")
-    @Getter
-    private WebElement fio;
-
-    @FindBy(xpath="//div[@ng-if='vm.errorMessage'][contains(.,'Заказ с указанными параметрами не найден')]")
-    @Getter
-    private WebElement errorMessage;
-
     @Getter
     private TownList townList;
 

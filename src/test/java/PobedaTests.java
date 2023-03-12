@@ -58,20 +58,20 @@ public class PobedaTests {
 
         //4. Выбрать (или ввести) следующие критерии поиска:
 //        а) есть поле «Номер заказа или билета»;
-        page.getTicketSearch().getOrderNo().isDisplayed();
+        page.getBookingSearch().getOrderNo().isDisplayed();
 //        б) есть поле «Фамилия клиента»;
-        page.getTicketSearch().getFio().isDisplayed();
+        page.getBookingSearch().getFio().isDisplayed();
 //        в) есть кнопка «Поиск».
-        page.getTicketSearch().getSearchBtn().isDisplayed();
+        page.getBookingSearch().getSearchBtn().isDisplayed();
 
 //        5. Ввести в поля ввода данные:
 //        номер заказа – XXXXXX, фамилия – Qwerty
 //        и нажать кнопку «Поиск».
-        page.getTicketSearch().getOrderNo().click();
-        page.getTicketSearch().getOrderNo().sendKeys("XSSSSS");
-        page.getTicketSearch().getFio().click();
-        page.getTicketSearch().getFio().sendKeys("Qwertyyyyyy");
-        page.getTicketSearch().getSearchBtn().click();
+        page.getBookingSearch().getOrderNo().click();
+        page.getBookingSearch().getOrderNo().sendKeys("XSSSSS");
+        page.getBookingSearch().getFio().click();
+        page.getBookingSearch().getFio().sendKeys("Qwertyyyyyy");
+        page.getBookingSearch().getSearchBtn().click();
 
 //        6. Убедиться, что в новой вкладке на экране отображается текст ошибки «Заказ с указанными параметрами не найден»
         //ждем пока откроется новая вкладка
@@ -90,7 +90,7 @@ public class PobedaTests {
         //Ждем пока откроется страница с title "Просмотр заказа"
         wait.until(titleIs("Просмотр заказа"));
         //на экране отображается текст ошибки «Заказ с указанными параметрами не найден»
-        page.getTicketSearch().getErrorMessage().isDisplayed();
+        page.getBookingSearch().getErrorMessage().isDisplayed();
 }
 
     @AfterEach

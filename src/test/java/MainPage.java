@@ -31,10 +31,13 @@ public class MainPage {
 
     @Getter
     private TicketSearch ticketSearch;
+    @Getter
+    private BookingSearch bookingSearch;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
         this.ticketSearch=new TicketSearch(driver);
+        this.bookingSearch=new BookingSearch(driver);
         PageFactory.initElements(driver,this);
     }
 
