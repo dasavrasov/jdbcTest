@@ -1,6 +1,8 @@
+import io.qameta.allure.Step;
 import lombok.Getter;
 import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TicketSearch {
     //Откуда
@@ -32,5 +34,26 @@ public class TicketSearch {
 
     public TicketSearch() {
         this.townList=new TownList();
+    }
+
+    @Step("Проскроллить страницу к блоку поиска билета")
+    public void moveToFrom(){
+        from.hover();
+    }
+
+    @Step("Выбрать город из списка")
+    public void selectTown(SelenideElement element){
+        element.hover();
+        townList.getMenuItem().click();
+    }
+
+    @Step("Кликнуть на кнопку <Поиск>")
+    public void searchBtnClick(){
+        searchBtn.click();
+    }
+
+    @Step("Около поля «Туда» появилась красная обводка")
+    public void checkColor(String color){
+        assertEquals(departure.getCssValue("border-color"),color);
     }
 }

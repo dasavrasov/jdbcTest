@@ -1,6 +1,11 @@
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 import lombok.Getter;
+import org.junit.jupiter.api.Assertions;
+
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPage {
 
@@ -29,7 +34,12 @@ public class MainPage {
         this.bookingSearch=new BookingSearch();
     }
 
-    public String getTitle(){
-        return $("title").getAttribute("text");
+    @Step("Проверка tittle = {tittle}")
+    public void checkTitle(String tittle){
+        assertEquals($("title").getAttribute("text"), tittle);
+    }
+    @Step("Проверка logo")
+    public void checkLogo(){
+        logo.shouldBe(visible);
     }
 }
