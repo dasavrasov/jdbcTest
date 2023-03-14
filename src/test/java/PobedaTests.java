@@ -55,8 +55,8 @@ public class PobedaTests {
         bookingSearch.checkFio();
         bookingSearch.checkSearchBtn();
 
-        bookingSearch.inputOrderNo("SSSSSD");
-        bookingSearch.inputFio("Qwertyyyyyyyy");
+        bookingSearch.inputOrderNo("SSSSDD");
+        bookingSearch.inputFio("Qwertyyyyyyyyy");
         bookingSearch.searchBtnClick();
 
         bookingSearch.checkError("Заказ с указанными параметрами не найден");
