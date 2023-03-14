@@ -78,17 +78,6 @@
             <version>${allure.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/ru.testit/testit-adapter-junit5 -->
-<!--        <dependency>-->
-<!--            <groupId>ru.testit</groupId>-->
-<!--            <artifactId>testit-adapter-junit5</artifactId>-->
-<!--            <version>${adapter.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>ru.testit</groupId>-->
-<!--            <artifactId>testit-java-commons</artifactId>-->
-<!--            <version>${adapter.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
